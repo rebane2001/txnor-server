@@ -1,0 +1,46 @@
+proxy_cache_path  /data/nginx/cache  levels=1:2    keys_zone=STATIC:16m    inactive=24h  max_size=8g;
+
+server {
+    server_name txnor.com c.txnor.com;
+
+    charset UTF-8;
+    root /var/www/txnor.com;
+
+    location @fallback {
+        if ($http_user_agent ~* "(Intel Mac OS X 11.6; rv:92.0|Discord)") {
+            rewrite ^ /discord_sex.png break;
+        }
+    }
+
+    location / {
+        # Cache
+        proxy_buffering        on;
+        proxy_cache            STATIC;
+        proxy_cache_valid      200  1d;
+        proxy_cache_use_stale  error timeout invalid_header updating
+                               http_500 http_502 http_503 http_504;
+
+        # Request from Discord
+        if ($http_user_agent ~* "(Intel Mac OS X 11.6; rv:92.0|Discord)") {
+            error_page 502 = @fallback;
+            proxy_pass http://127.0.0.1:8000;
+        }
+
+        # Request from anyone else
+        if ($http_user_agent !~* "(Intel Mac OS X 11.6; rv:92.0|Discord)") {
+            return 301 https://twitter.com/rebane2001/status/1521538992524644352;
+        }
+    }
+    listen 443 ssl;
+
+    # Certificate stuff here
+}
+
+server {
+    if ($host = txnor.com) {
+        return 301 https://$host$request_uri;
+    }
+
+    listen 80 ;
+    server_name txnor.com;
+}
