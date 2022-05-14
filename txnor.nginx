@@ -28,7 +28,7 @@ server {
 
         # Request from anyone else
         if ($http_user_agent !~* "(Intel Mac OS X 11.6; rv:92.0|Discord)") {
-            return 301 https://twitter.com/rebane2001/status/1521538992524644352;
+            return 301 https://www.youtube.com/watch?v=km8CR-fdB7o;
         }
     }
     listen 443 ssl;
