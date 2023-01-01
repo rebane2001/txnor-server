@@ -79,7 +79,7 @@ class SexHack:
         """Generate s/e/x or double s/e/x image"""
         url = f"https://tenor.com/view/{name[6:]}"
         r = requests.get(url, headers=headers, timeout=3)
-        search = re.search(r'<meta class="dynamic" name="twitter:image" content="https://c.tenor.com/([^"]*)">',
+        search = re.search(r'<meta class="dynamic" name="twitter:image" content="https://(?:c|media).tenor.com/([^"]*)">',
                            r.text)
         img_url = f"https://c.tenor.com/{search.group(1)}".replace("AAC/", "AAe/")
         img_raw = requests.get(img_url, stream=True, headers=headers, timeout=3).raw
