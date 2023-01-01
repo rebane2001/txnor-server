@@ -165,8 +165,10 @@ class SexHack:
     def GET(self, name):
         """Handle a request"""
         web.header('Content-type', 'image/png')
+        # Filter the name so unicode paths don't error
+        filtered_name = re.sub(r'[^\.\/A-Za-z0-9_-]+', '', name)
         # Return default image if one was not generated
-        return self.handle_request(name) or self.default_response()
+        return self.handle_request(filtered_name) or self.default_response()
 
 
 if __name__ == "__main__":
