@@ -11,8 +11,8 @@ import chess.svg
 # Start the stockfish engine
 engine = chess.engine.SimpleEngine.popen_uci("stockfish")
 
-valid_move_pattern = re.compile("^[a-h][0-8][a-h][0-8]q?$")
-valid_move_pattern_open = re.compile("[a-h][0-8][a-h][0-8]q?")
+valid_move_pattern = re.compile("^[a-h][0-8][a-h][0-8][qrk]?$")
+valid_move_pattern_open = re.compile("[a-h][0-8][a-h][0-8][qrk]?")
 
 board_colors = {
     "square light": "#FFFFFF",
