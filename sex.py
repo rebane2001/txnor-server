@@ -9,6 +9,8 @@ import re
 import chessgame
 
 # Configure the app
+import swordgame
+
 app = web.application(('(.*)', 'SexHack'), globals())
 web.config.debug = False
 host = "127.0.0.1"
@@ -144,6 +146,10 @@ class SexHack:
 
             # Enable caching from this point onward
             web.header('Cache-Control', 'public, max-age=86400')
+
+            # /vieord/ and /vixord/
+            if re.search(r'^/vi[ex]ord[A-Za-z]*/[A-Za-z0-9_-]*$', name):
+                return swordgame.process_url(name)
 
             # /vieag/ and /vixag/
             if re.search(r'^/vi[ex]ag[A-Za-z0-9]*/[A-Za-z0-9_-]*$', name):

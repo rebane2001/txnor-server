@@ -1,0 +1,3 @@
+Place the following fonts here:
+Ginto Nord Black.ttf
+Ginto Nord Medium.ttf
