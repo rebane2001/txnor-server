@@ -167,6 +167,9 @@ class SexHack:
         web.header('Content-type', 'image/png')
         # Filter the name so unicode paths don't error
         filtered_name = re.sub(r'[^\.\/A-Za-z0-9_-]+', '', name)
+        # Filter out languages in URL and handle edge-case for english double sex
+        filtered_name = re.sub(r'^/xn-../view', '/vixw', filtered_name)
+        filtered_name = re.sub(r'^/[A-Za-z-]*/vi', '/vi', filtered_name)
         # Return default image if one was not generated
         return self.handle_request(filtered_name) or self.default_response()
 
